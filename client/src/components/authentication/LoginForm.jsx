@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import {
@@ -10,6 +11,8 @@ import {
   Typography,
   Grid,
 } from "@mui/material";
+import { loginUser } from "../../api/login";
+
 
 const schema = yup.object().shape({
   username: yup.string().required("Username is required")
@@ -26,16 +29,28 @@ const schema = yup.object().shape({
 });
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = (data) => {
+
+  const onSubmit = async (data) => {
     console.log("Login Data:", data);
-    
+    try {
+      const response = await loginUser(data);
+      console.log("res==== ", response);
+      if (response.status == 200) {
+        console.log("first")
+        navigate("/home"); 
+      } 
+    } catch (error) {
+        throw error;
+    }
   };
+  
 
 
 

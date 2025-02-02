@@ -1,12 +1,30 @@
 import { useNavigate } from "react-router-dom";
 import { Box, Typography, Button  } from "@mui/material";
+import { logoutUser } from "../api/login"
 
 const HomePage = () => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    navigate("/");
+  const handleLogout = async () => {
+    try{
+      await logoutUser();
+
+    }catch(error){
+      throw error;
+    }
+    // try{
+    //   const response = await logoutUser();
+    //   if(response){
+    //     console.log("Logout successfully");
+        
+    //   }
+      
+    // }catch(error){
+    //     throw error;
+    // }
+    
   };
+
 
   return (
     <Box
