@@ -26,7 +26,7 @@ public class UserController {
     public String login(@RequestBody Users user) {
         return service.verify(user);
     }
-    
+
 
     @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/logout")
